@@ -1,12 +1,12 @@
 $(document).ready( function(){
+var newDrink = [];
+var ingredients = {
 
-var ingredientsArr = {
-
-    Strong: ["Glug of rum", "slug of whisky", "splash of gin"],
-    Salty: ["Olive on a stick", "salt-dusted rim", "rasher of bacon"],
-    Bitter: ["Shake of bitters", "splash of tonic", "twist of lemon peel"],
-    Sweet: ["Sugar cube", "spoonful of honey", "splash of cola"],
-    Fruity: ["Slice of orange", "dash of cassis", "cherry on top"],
+    strong: ["Glug of rum", "slug of whisky", "splash of gin"],
+    salty: ["Olive on a stick", "salt-dusted rim", "rasher of bacon"],
+    bitter: ["Shake of bitters", "splash of tonic", "twist of lemon peel"],
+    sweet: ["Sugar cube", "spoonful of honey", "splash of cola"],
+    fruity: ["Slice of orange", "dash of cassis", "cherry on top"],
 
 };
 
@@ -14,12 +14,18 @@ var ingredientsArr = {
 		makeDrink();
 	});
 
-// Function drink creation
+// Function driyounk creation
 	// take user input
 	function makeDrink() {
-		var drinkPreferences = $('#questions-list').find('input[name=questions-input]:checked').val();
-		console.log(drinkPreferences);
-			if (drinkPreferences
+		var drinkPreferences = $('#questions-list').find('input[name=questions-input]:checked');
+		newDrink = [];
+		$.each(drinkPreferences, function(index, element) {
+			newDrink.push(ingredients[element.value][
+				Math.floor((Math.random() * 3))]);
+				
+		});
+		console.log(newDrink);	
+
 		// If we get a response from the checkbox === 'on'
 			// Then, we will locate where that 'on' is coming from (what ingredient)
 				// and then mix it up
