@@ -1,0 +1,23 @@
+body {
+	background-image: url('../images/background-image.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	font-family: "Pirata One";
+}
+
+.container {
+	max-width: 500px;
+	min-height: 300px;
+	border: solid red 1px;
+	opacity: .7;
+	background-color: antiquewhite;
+	border-radius: 10px;
+	margin: 4.5em auto;
+	padding: 0px 4em;
+	padding-bottom: 2em;
+}
+
+.questions ul {
+	font-size: 1.5em;
+}
+

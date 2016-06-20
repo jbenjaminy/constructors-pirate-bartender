@@ -3,22 +3,32 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Pirate Bartender</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link href='https://fonts.googleapis.com/css?family=Pirata+One' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-	<header>
-		<p>What can I get for ya?</p>
-	</header>
-	<div class="questions">
-		<ul id="questions-list">
-			<li>Do ye like yer drinks strong?<input type="checkbox" name="questions-input" id="strong" value="strong"></li>
-			<li>Do ye like it with a salty tang?<input type="checkbox" name="questions-input" id="salty" value="salty"></li>
-			<li>Are ye a lubber who likes it bitter?<input type="checkbox" name="questions-input" id="bitter" value="bitter"></li>
-			<li>Would ye like a bit of sweetness with yer poison?<input type="checkbox" name="questions-input" id="sweet" value="sweet"></li>
-			<li>Are ye one for a fruity finish?<input type="checkbox" name="questions-input" id="fruity" value="fruity"></li>
+	<div class="container">
+	<div class="main questions">
+		<h1>What can I get for ya?</h1>
+		<ul id="questions-list" style="list-style-type: none">
+			<li><input type="checkbox" name="questions-input" id="strong" value="strong"> Do ye like yer drinks strong?</li>
+			<li><input type="checkbox" name="questions-input" id="salty" value="salty"> Do ye like it with a salty tang?</li>
+			<li><input type="checkbox" name="questions-input" id="bitter" value="bitter"> Are ye a lubber who likes it bitter?</li>
+			<li><input type="checkbox" name="questions-input" id="sweet" value="sweet"> Would ye like a bit of sweetness with yer poison?</li>
+			<li><input type="checkbox" name="questions-input" id="fruity" value="fruity"> Are ye one for a fruity finish?</li>
 		</ul>
 		<button id="make-drink">Make Drink</button>
 	</div>
+
+	<div class="main finished-drinks" style="display: none">
+		<h1>Drink up!</h1>
+		<h2 id="drink"></h2>
+		<button id="new-drink">Make Another Drink</button>
+	</div>
+	</div>
+
+	<audio id="pirate-song" src="audio/song.wav">
 
 	<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
