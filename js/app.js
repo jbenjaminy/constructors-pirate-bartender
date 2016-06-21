@@ -1,66 +1,76 @@
 $(document).ready( function(){
 
-// VARIABLES
-var newDrink = [];
-var drinkPreferences = {};
+	// VARIABLES
+	var newDrink = [];
 
-var ingredients = {
-    strong: ["Glug of rum", "Slug of whisky", "Splash of gin"],
-    salty: ["Olive on a stick", "Salt-dusted rim", "Rasher of bacon"],
-    bitter: ["Shake of bitters", "Splash of tonic", "Twist of lemon peel"],
-    sweet: ["Sugar cube", "Spoonful of honey", "Splash of cola"],
-    fruity: ["Slice of orange", "Dash of cassis", "Cherry on top"],
-};
+	// CONTSTRUCTOR
+	var Drinktype = function (taste, content, question) {
+		this.taste = taste;
+		this.content = content;
+		this.question = question;
+	};
+	Drinktype.prototype.randomizer = function () {
+		return this.content[Math.floor((Math.random() * 3))];
+	};
 
-var drinkServe = function () {
-		$('#drink').text("Here's your" + " " + drinkName + " " + "Brew!");
-			soundClip();
-};
-
-// CONTSTRUCTOR
-var Order = function(drinkPreferences) {
-	this.drinkPreferences = drinkPreferences;
-};
-Order.prototype.makeDrink = function (drinkPreferences, ingredients) {
-
-};
-
-
-// MAKE DRINK CLICK FUNCTION
-	$('#make-drink').click(function(){
-		var order = new Order();
-		order.makeDrink();
-	});
-
-// DRINK CREATION FUNCTION
-	function makeDrink() {
+	var makeDrink = function (drinkPreferences) {
 		// TAKES USER INPUT PREFERENCES AND STORES THEM IN NEW DRINK ARRAY
-		drinkPreferences = $('#questions-list').find('input[name=questions-input]:checked');
 		newDrink = [];
 		// RANDOMIZED SELECTION OF AN INGREDIENT FROM EACH CATEGORY
 		$.each(drinkPreferences, function(index, element) {
-			newDrink.push(ingredients[element.value][
-				Math.floor((Math.random() * 3))]);
+			for ( var i = 0; i < ingredients.length; i++ ) {
+				if (element.value === ingredients[i].taste) {
+					newDrink.push(ingredients[i].randomizer());
+				}
+			}
 		});
-		// DISPLAYS THE FINISHED DRINK RECIPE AND PLAYS SOUND CLIP
+		drinkServe(newDrink);
+	};
+
+	// BUILDING OBJECTS
+	var strong = new Drinktype('strong', ["Glug of rum", "Slug of whisky", "Splash of gin"], "Do ye like yer drinks strong?");
+	var salty = new Drinktype('salty', ["Olive on a stick", "Salt-dusted rim", "Rasher of bacon"], "Do ye like it with a salty tang?");
+	var bitter = new Drinktype('bitter', ["Shake of bitters", "Splash of tonic", "Twist of lemon peel"], "Are ye a lubber who likes it bitter?");
+	var sweet = new Drinktype('sweet', ["Sugar cube", "Spoonful of honey", "Splash of cola"], "Would ye like a bit of sweetness with yer poison?");
+	var fruity = new Drinktype('fruity', ["Slice of orange", "Dash of cassis", "Cherry on top"], "Are ye one for a fruity finish?");
+	var ingredients = [strong, salty, bitter, sweet, fruity];
+
+	// MAKE DRINK CLICK FUNCTION
+	$('#make-drink').click(function(){
+		var drinkPreferences = $('#questions-list').find('input[name=questions-input]:checked');
+		makeDrink(drinkPreferences);
+	});
+
+	// DISPLAY QUESTIONS
+	displayQs();
+
+	// DRINK CREATION FUNCTION
+	function displayQs () {
+		for ( var i = 0; i < ingredients.length; i++ ) {
+			var questionItem = '<li><input type="checkbox" name="questions-input" value="' + ingredients[i].taste +'">' + ' ' + ingredients[i].question + '</li>';
+			$('#questions-list').append(questionItem);
+		}
+	}
+
+	function drinkServe (newDrink) {
 		$('.main').hide();
 		$('.finished-drinks').show();
 		var drinkName = "";
 		for (var i = 0; i < newDrink.length; i++) {
 			drinkName += newDrink[i] + " ";
 		}
-		drinkServe();
+		$('#drink').text("Here's your" + " " + drinkName + " " + "Brew!");
+		soundClip();
 	}
-
 	
-// CLICK FUNCTION TO RESET SELECTION AND MAKE NEW DRINK 
+	// CLICK FUNCTION TO RESET SELECTION AND MAKE NEW DRINK 
 	$('body').on('click', '#new-drink', function(event){
 		$('.main').hide();
 		$('.questions').show();
 		$('input[type=checkbox]').prop('checked', false);
 	});
 
-// SOUND CLIP LOAD AND PLAY FUNCTION
+	// SOUND CLIP LOAD AND PLAY FUNCTION
 	function soundClip() {
 	    $("#pirate-song")[0].volume = 0.5;
 	    $("#pirate-song")[0].load();
