@@ -2,6 +2,7 @@ $(document).ready( function(){
 
 // VARIABLES
 var newDrink = [];
+var drinkPreferences = {};
 
 var ingredients = {
     strong: ["Glug of rum", "Slug of whisky", "Splash of gin"],
@@ -11,15 +12,30 @@ var ingredients = {
     fruity: ["Slice of orange", "Dash of cassis", "Cherry on top"],
 };
 
+var drinkServe = function () {
+		$('#drink').text("Here's your" + " " + drinkName + " " + "Brew!");
+			soundClip();
+};
+
+// CONTSTRUCTOR
+var Order = function(drinkPreferences) {
+	this.drinkPreferences = drinkPreferences;
+};
+Order.prototype.makeDrink = function (drinkPreferences, ingredients) {
+
+};
+
+
 // MAKE DRINK CLICK FUNCTION
 	$('#make-drink').click(function(){
-		makeDrink();
+		var order = new Order();
+		order.makeDrink();
 	});
 
 // DRINK CREATION FUNCTION
 	function makeDrink() {
 		// TAKES USER INPUT PREFERENCES AND STORES THEM IN NEW DRINK ARRAY
-		var drinkPreferences = $('#questions-list').find('input[name=questions-input]:checked');
+		drinkPreferences = $('#questions-list').find('input[name=questions-input]:checked');
 		newDrink = [];
 		// RANDOMIZED SELECTION OF AN INGREDIENT FROM EACH CATEGORY
 		$.each(drinkPreferences, function(index, element) {
@@ -33,10 +49,10 @@ var ingredients = {
 		for (var i = 0; i < newDrink.length; i++) {
 			drinkName += newDrink[i] + " ";
 		}
-		$('#drink').text("Here's your" + " " + drinkName + " " + "Brew!");
-			soundClip();
+		drinkServe();
 	}
 
+	
 // CLICK FUNCTION TO RESET SELECTION AND MAKE NEW DRINK 
 	$('body').on('click', '#new-drink', function(event){
 		$('.main').hide();
