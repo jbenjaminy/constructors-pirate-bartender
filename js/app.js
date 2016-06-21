@@ -49,6 +49,6 @@ var ingredients = {
 	    $("#pirate-song")[0].volume = 0.5;
 	    $("#pirate-song")[0].load();
 	    $("#pirate-song")[0].play();
-	};
+	}
 
 });
