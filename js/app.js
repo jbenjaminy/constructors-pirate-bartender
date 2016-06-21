@@ -1,4 +1,4 @@
-$(document).ready( function(){
+$(document).ready( function() {
 
 	// VARIABLES
 	var newDrink = [];
@@ -9,6 +9,7 @@ $(document).ready( function(){
 		this.content = content;
 		this.question = question;
 	};
+	
 	Drinktype.prototype.randomizer = function () {
 		return this.content[Math.floor((Math.random() * 3))];
 	};
@@ -24,6 +25,7 @@ $(document).ready( function(){
 				}
 			}
 		});
+
 		drinkServe(newDrink);
 	};
 
@@ -52,23 +54,28 @@ $(document).ready( function(){
 		}
 	}
 
-	function drinkServe (newDrink) {
-		$('.main').hide();
-		$('.finished-drinks').show();
-		var drinkName = "";
-		for (var i = 0; i < newDrink.length; i++) {
-			drinkName += newDrink[i] + " ";
-		}
-		$('#drink').text("Here's your" + " " + drinkName + " " + "Brew!");
-		soundClip();
-	}
-	
 	// CLICK FUNCTION TO RESET SELECTION AND MAKE NEW DRINK 
 	$('body').on('click', '#new-drink', function(event){
 		$('.main').hide();
 		$('.questions').show();
 		$('input[type=checkbox]').prop('checked', false);
 	});
+
+	// DISPLAYS FINISHED DRINK SECTION, CREATES AND DISPLAYS DRINK NAME
+	function drinkServe (newDrink) {
+		// DISPLAYS FINISHED DRINK SECTION
+		$('.main').hide();
+		$('.finished-drinks').show();
+
+		var drinkName = "";
+		// LOOPS THROUGH NEWDRINK (INGREDIENTS) LIST AND NAMES IT
+		for (var i = 0; i < newDrink.length; i++) {
+			drinkName += newDrink[i] + " ";
+		}
+		// DISPLAYS DRINK NAME
+		$('#drink').text("Here's your" + " " + drinkName + " " + "Brew!");
+		soundClip();
+	}
 
 	// SOUND CLIP LOAD AND PLAY FUNCTION
 	function soundClip() {
