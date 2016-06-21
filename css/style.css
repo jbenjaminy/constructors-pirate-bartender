@@ -28,3 +28,13 @@ button {
 	background-color: lightgray;
 	opacity: 1;
 }
+
+#questions-list {
+	list-style-type: none;
+}
+
+.finished-drinks {
+	display: none;
+}
+
+
